@@ -1,0 +1,71 @@
+{
+  "name": "baruch-manga-crawler",
+  "version": "0.0.1",
+  "description": "baruch-manga-crawler",
+  "license": "MIT",
+  "repository": "",
+  "author": {
+    "name": "Adrian Dela Piedra",
+    "email": "adrian.onrails@gmail.com",
+    "url": "https://github.com/adrianonrails"
+  },
+  "keywords": [
+    "baruch",
+    "manga",
+    "crawler",
+    "node"
+  ],
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "clean": "rimraf lib && rimraf coverage",
+    "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
+    "lint": "tslint --force --format verbose \"src/**/*.ts\"",
+    "prepublishOnly": "npm run build",
+    "prebuild": "npm run clean && npm run format && npm run lint && echo Using TypeScript && tsc --version",
+    "build": "tsc --pretty",
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "start": "tsc src/index.ts",
+    "watch": "npm run build -- --watch",
+    "watch:test": "jest --watch"
+  },
+  "dependencies": {
+    "@types/es6-promise": "^3.3.0",
+    "@types/lodash": "^4.14.108",
+    "@types/x-ray": "^2.3.1",
+    "lodash": "^4.17.10",
+    "x-ray": "git+https://github.com/matthewmueller/x-ray.git"
+  },
+  "devDependencies": {
+    "@types/jest": "^22.0.1",
+    "@types/node": "^8.0.0",
+    "coveralls": "^2.0.0",
+    "jest": "^22.0.4",
+    "prettier": "^1.5.2",
+    "rimraf": "^2.0.0",
+    "ts-jest": "^22.0.1",
+    "ts-node": "^3.2.0",
+    "tslint": "^5.0.0",
+    "tslint-config-prettier": "^1.1.0",
+    "typescript": "^2.3.0"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "jest": {
+    "transform": {
+      ".(ts)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ],
+    "testEnvironment": "node"
+  }
+}
