@@ -31,11 +31,11 @@ const pages = await MangaProvider.getPages(chapters[0].location);
 
 MangaProvider requires the following to run:
 
-* [npm](npm) (normally comes with Node.js)
+* npm
 
 ## Usage
 
-MangaProvider is easiest to use when installed with [npm][npm]:
+First, install it via npm.
 
 ```
 npm install --save baruch-manga-provider
@@ -53,11 +53,29 @@ or you can use `import`:
 import MangaProvider from "manga-provider";
 ```
 
-### Adding a source
+### Output format
+Some output listed below are in `Promise`. Thus, you need to use `.then` to get the actual output or you can `await` it.
 
-By default there is no source added. This is so that you can control where you want your information to comes from.
+#### `.then`
 
-> Note: Adding many sources will make the library slower.
+```js
+MangaProvider.search("One piece").then(res => {
+  console.log(res);
+});
+```
+
+#### `.await`
+
+```js
+const res = await MangaProvider.search("One piece");
+console.log(res);
+```
+
+### Adding a source `MangaProvider.addCrawler( crawler )`
+
+By default there is no source added. This is so that you can control where you want your information to come from.
+
+> Note: Adding many sources will make the initial loading of the library slower, no other side effects other than that.
 
 ```js
 const { MangaReaderCrawler,  GoodMangaCrawler } = require("manga-provider/crawlers");
@@ -65,7 +83,7 @@ MangaProvider.addCrawler(new MangaReaderCrawler());
 MangaProvider.addCrawler(new GoodMangaCrawler());
 ```
 
-### Removing a source
+### Removing a source `MangaProvider.removeCrawler( crawler )`
 
 ```js
 const { MangaReaderCrawler } = require("manga-provider/crawlers");
@@ -77,6 +95,7 @@ MangaProvider.removeCrawler(crawler);
 ### Searching a manga `MangaProvider.search( title )`
 
 Returns a list of manga with minimal information.
+Output is wrapped in a `Promise`.
 
 **Parameters**
 
@@ -94,7 +113,8 @@ MangaProvider.search("One piece").then(res => {
 
 **Return value**
 
-An array of these properties
+An array of these properties:
+
 |Name|Type|Description|Example|
 |----|----|-----------|-------|
 |source|string|Where the list comes from|"GoodManga"|
@@ -134,9 +154,10 @@ Sample output:
 ]
 ```
 
-### Get manga info
+### Get manga info `MangaProvider.getMangaInfo( location )`
 
 Returns manga information.
+Output is wrapped in a `Promise`.
 
 **Parameters**
 
@@ -191,9 +212,10 @@ Sample output:
 
 > Note: Other info might not be returned, some sites might not have the information needed.
 
-### Get manga chapters
+### Get manga chapters `MangaProvider.getChapters( location )`
 
 Returns the list of chapters.
+Output is wrapped in a `Promise`.
 
 **Parameters**
 
@@ -211,7 +233,8 @@ MangaProvider.getChapters("http://www.goodmanga.net/5/one_piece").then(res => {
 
 **Return value**
 
-An array of these properties
+An array of these properties:
+
 |Name|Type|Description|Example|
 |----|----|-----------|-------|
 |title|string|Chapter title|"One Piece Chapter 900"|
@@ -236,9 +259,10 @@ Sample output:
 ];
 ```
 
-### Get chapter pages
+### Get chapter pages `MangaProvider.getPages( location )`
 
 Returns the list of pages in a manga chapter.
+Output is wrapped in a `Promise`.
 
 **Parameters**
 
@@ -256,7 +280,8 @@ MangaProvider.getPages("http://www.goodmanga.net/one_piece/chapter/904").then(re
 
 **Return value**
 
-An array of these properties
+An array of these properties:
+
 |Name|Type|Description|Example|
 |----|----|-----------|-------|
 |index|number|Page number|1|
