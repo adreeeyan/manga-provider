@@ -1,5 +1,5 @@
-import * as _ from 'lodash';
-import Manga from '../models/manga';
+import * as _ from "lodash";
+import Manga from "../models/manga";
 
 export default abstract class BaseCrawler {
   retriever: any;
@@ -9,21 +9,47 @@ export default abstract class BaseCrawler {
     this.mangaList = [];
   }
 
-  abstract getMangaList = (forcedUpdate: boolean = false): Promise<any> => {
-    throw new Error('You have to implement this method getMangaList!');
+  public getMangaList = (forcedUpdate: boolean = false): Promise<any> => {
+    return new Promise(async resolve => {
+      // check if value already cached and not a forced update
+      if (this.mangaList.length > 0 && !forcedUpdate) {
+        resolve(this.mangaList);
+      }
+
+      const list = await this._getMangaList();
+      resolve(list);
+    });
   };
 
-  abstract getMangaInfo = (location: string): Promise<any> => {
-    throw new Error('You have to implement this method getMangaInfo!');
+  abstract _getMangaList(): Promise<any>;
+
+  public getMangaInfo = (location: string): Promise<any> => {
+    return new Promise(async resolve => {
+      const info = await this._getMangaInfo(location);
+      resolve(info);
+    });
   };
 
-  abstract getChapters = (location: string): Promise<any> => {
-    throw new Error('You have to implement this method getChapters!');
+  abstract _getMangaInfo(location: string): Promise<any>
+
+  public getChapters = (location: string): Promise<any> => {
+    return new Promise(async resolve => {
+      const chapters = await this._getChapters(location);
+      // reverse the sorting
+      resolve(chapters.reverse());
+    });
   };
 
-  abstract getPages = (location: string): Promise<any> => {
-    throw new Error('You have to implement this method getPages!');
+  abstract _getChapters(location: string): Promise<any>
+
+  public getPages = (location: string): Promise<any> => {
+    return new Promise(async resolve => {
+      const pages = await this._getPages(location);
+      resolve(pages);
+    });
   };
+
+  abstract _getPages(location: string): Promise<any>;
 
   public searchManga = (source: Manga[], title: string) => {
     return (
