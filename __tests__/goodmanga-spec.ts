@@ -15,12 +15,12 @@ describe("The GoodManga crawler should work", () => {
   });
 
   test("It should be able to search manga", async () => {
-    const searchedMangas = crawler.searchManga(mangas, "One Piece");
+    const searchedMangas = await crawler.searchManga("One Piece");
     expect(searchedMangas.length).toBeGreaterThan(0);
   });
 
   test("It should get the manga info", async () => {
-    const searchedMangas = crawler.searchManga(mangas, "One Piece");
+    const searchedMangas = await crawler.searchManga("One Piece");
     const manga = await crawler.getMangaInfo(
       searchedMangas[0].location
     );

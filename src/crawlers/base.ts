@@ -30,7 +30,7 @@ export default abstract class BaseCrawler {
     });
   };
 
-  abstract _getMangaInfo(location: string): Promise<any>
+  abstract _getMangaInfo(location: string): Promise<any>;
 
   public getChapters = (location: string): Promise<any> => {
     return new Promise(async resolve => {
@@ -40,7 +40,7 @@ export default abstract class BaseCrawler {
     });
   };
 
-  abstract _getChapters(location: string): Promise<any>
+  abstract _getChapters(location: string): Promise<any>;
 
   public getPages = (location: string): Promise<any> => {
     return new Promise(async resolve => {
@@ -51,11 +51,17 @@ export default abstract class BaseCrawler {
 
   abstract _getPages(location: string): Promise<any>;
 
-  public searchManga = (source: Manga[], title: string) => {
-    return (
-      source.filter(manga =>
-        _.includes(manga.title.toLowerCase(), title.toLowerCase())
-      ) || []
-    );
+  public searchManga = (title: string): Promise<any> => {
+    return new Promise(async resolve => {
+      let source = this.mangaList;
+      if (source.length == 0) {
+        source = await this._getMangaList();
+      }
+      const searched =
+        source.filter(manga =>
+          _.includes(manga.title.toLowerCase(), title.toLowerCase())
+        ) || [];
+      resolve(searched);
+    });
   };
 }

@@ -2,8 +2,7 @@ import { MangaReaderCrawler } from "./crawlers";
 
 const main = async () => {
   const crawler = new MangaReaderCrawler();
-  const mangas = await crawler.getMangaList();
-  const searchedMangas = crawler.searchManga(mangas, 'One Piece');
+  const searchedMangas = await crawler.searchManga('One Piece');
   console.log(searchedMangas);
   const manga = await crawler.getMangaInfo(searchedMangas[0].location);
   console.log(manga);
