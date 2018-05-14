@@ -53,11 +53,7 @@ export default abstract class BaseCrawler {
         source.filter(manga =>
           _.includes(manga.title.toLowerCase(), title.toLowerCase())
         ) || [];
-      const addedSource = searched.map(s => ({
-        ...s,
-        source: this.name,
-      }));
-      resolve(addedSource);
+      resolve(searched);
     });
   };
 

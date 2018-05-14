@@ -1,9 +1,9 @@
 {
   "name": "baruch-manga-provider",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "baruch-manga-provider",
   "license": "MIT",
-  "repository": "https://github.com/adrianonrails/manga-crawler/",
+  "repository": "https://github.com/adrianonrails/manga-provider/",
   "author": {
     "name": "Adrian Dela Piedra",
     "email": "adrian.onrails@gmail.com",

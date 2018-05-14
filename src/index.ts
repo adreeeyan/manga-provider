@@ -22,7 +22,7 @@ const search = (title: string): Promise<any> => {
     );
     const results = _.flatten(variousResults);
     const grouped = _(results)
-      .groupBy(manga => manga.source)
+      .groupBy(manga => getSourceFromLocation(manga.location))
       .map((value, key) => ({ source: key, mangas: value }))
       .value();
 
@@ -32,7 +32,7 @@ const search = (title: string): Promise<any> => {
 
 const getMangaInfo = (location: string): Promise<any> => {
   return new Promise(async resolve => {
-    const source = getSourceFromTitle(location);
+    const source = getSourceFromLocation(location);
     const crawler = <BaseCrawler>getCrawlerFromSource(source);
     const info = crawler.getMangaInfo(location);
     resolve(info);
@@ -41,7 +41,7 @@ const getMangaInfo = (location: string): Promise<any> => {
 
 const getChapters = (location: string): Promise<any> => {
   return new Promise(async resolve => {
-    const source = getSourceFromTitle(location);
+    const source = getSourceFromLocation(location);
     const crawler = <BaseCrawler>getCrawlerFromSource(source);
     const chapters = crawler.getChapters(location);
     resolve(chapters);
@@ -50,14 +50,14 @@ const getChapters = (location: string): Promise<any> => {
 
 const getPages = (location: string): Promise<any> => {
   return new Promise(async resolve => {
-    const source = getSourceFromTitle(location);
+    const source = getSourceFromLocation(location);
     const crawler = <BaseCrawler>getCrawlerFromSource(source);
     const pages = crawler.getPages(location);
     resolve(pages);
   });
 };
 
-const getSourceFromTitle = (location: string) => {
+const getSourceFromLocation = (location: string) => {
   if (/mangareader\.net/.test(location)) {
     return Names.MangaReader;
   }
