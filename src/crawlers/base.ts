@@ -2,13 +2,14 @@ import * as _ from 'lodash';
 import Manga from '../models/manga';
 
 export default abstract class BaseCrawler {
+  retriever: any;
   mangaList: Manga[];
 
   constructor() {
     this.mangaList = [];
   }
 
-  abstract getMangaList = (): Promise<any> => {
+  abstract getMangaList = (forcedUpdate: boolean = false): Promise<any> => {
     throw new Error('You have to implement this method getMangaList!');
   };
 

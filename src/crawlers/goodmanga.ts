@@ -4,8 +4,6 @@ import * as xray from 'x-ray';
 import Page from '../models/page';
 
 export default class GoodMangaCrawler extends BaseCrawler {
-  retriever: any;
-
   constructor() {
     super();
 
@@ -38,8 +36,14 @@ export default class GoodMangaCrawler extends BaseCrawler {
     });
   }
 
-  getMangaList = (): Promise<any> => {
+  getMangaList = (forcedUpdate: boolean = false): Promise<any> => {
     return new Promise(async resolve => {
+
+      // check if value already cached and not a forced update
+      if(this.mangaList.length > 0 && !forcedUpdate){
+        resolve(this.mangaList);
+      }
+
       this.retriever(
         'http://www.goodmanga.net/manga-list',
         '#content table.series_index td',
@@ -57,6 +61,7 @@ export default class GoodMangaCrawler extends BaseCrawler {
             location: res.location[index],
           };
         });
+        this.mangaList = mapped;
         resolve(mapped);
       });
     });
@@ -98,7 +103,7 @@ export default class GoodMangaCrawler extends BaseCrawler {
               });
             })
           );
-          resolve(chapters);
+          resolve(chapters.reverse());
         });
     });
   };
