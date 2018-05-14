@@ -31,6 +31,7 @@ const pages = await MangaProvider.getPages(chapters[0].location);
 
 MangaProvider requires the following to run:
 
+* nodejs
 * npm
 
 ## Usage
@@ -44,13 +45,13 @@ npm install --save baruch-manga-provider
 Then you can load the module into your code with a `require` call:
 
 ```js
-const MangaProvider = require("manga-provider");
+const MangaProvider = require("baruch-manga-provider");
 ```
 
 or you can use `import`:
 
 ```js
-import MangaProvider from "manga-provider";
+import MangaProvider from "baruch-manga-provider";
 ```
 
 ### Output format
@@ -82,7 +83,7 @@ By default there is no source added. This is so that you can control where you w
 const {
   MangaReaderCrawler,
   GoodMangaCrawler
-} = require("manga-provider/crawlers");
+} = require("baruch-manga-provider/lib/crawlers");
 MangaProvider.addCrawler(new MangaReaderCrawler());
 MangaProvider.addCrawler(new GoodMangaCrawler());
 ```
@@ -90,7 +91,7 @@ MangaProvider.addCrawler(new GoodMangaCrawler());
 ### Removing a source `MangaProvider.removeCrawler( crawler )`
 
 ```js
-const { MangaReaderCrawler } = require("manga-provider/crawlers");
+const { MangaReaderCrawler } = require("baruch-manga-provider/lib/crawlers");
 const crawler = new MangaReaderCrawler();
 MangaProvider.addCrawler(crawler);
 MangaProvider.removeCrawler(crawler);
