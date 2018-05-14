@@ -3,7 +3,7 @@ import * as _ from "lodash";
 
 let crawler = new MangaReaderCrawler();
 let mangas = [];
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
 describe("The MangaReader crawler should work", () => {
   beforeEach = () => {

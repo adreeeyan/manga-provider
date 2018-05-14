@@ -2,12 +2,12 @@ import * as MangaProvider from "../src";
 import { MangaReaderCrawler, GoodMangaCrawler } from "../src/crawlers";
 
 let searchedMangas = [];
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
 describe("The crawler shoud work", () => {
   let mangaReaderCrawler = new MangaReaderCrawler();
   let goodMangaCrawler = new GoodMangaCrawler();
-  
+
   test("It should be able to add crawlers", () => {
     MangaProvider.addCrawler(mangaReaderCrawler);
     expect(MangaProvider.crawlers.length).toBe(1);
