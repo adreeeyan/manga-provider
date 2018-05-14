@@ -57,6 +57,10 @@ export default abstract class BaseCrawler {
     });
   };
 
+  public isMangaListEmpty = (): boolean => {
+    return this.mangaList.length == 0;
+  };
+
   protected abstract _getMangaList(): Promise<any>;
   protected abstract _getMangaInfo(location: string): Promise<any>;
   protected abstract _getChapters(location: string): Promise<any>;

@@ -12,6 +12,15 @@ const removeCrawler = (crawler: BaseCrawler) => {
   _.pull(crawlers, crawler);
 };
 
+const updateMangaDb = (): Promise<any> => {
+  return new Promise(async resolve => {
+    await Promise.all(
+      crawlers.map(async crawler => await crawler.getMangaList(true))
+    );
+    resolve();
+  });
+};
+
 const search = (title: string): Promise<any> => {
   return new Promise(async resolve => {
     const variousResults = await Promise.all(
@@ -75,8 +84,9 @@ export {
   addCrawler,
   removeCrawler,
   crawlers,
+  updateMangaDb,
   search,
   getMangaInfo,
   getChapters,
-  getPages,
+  getPages
 };

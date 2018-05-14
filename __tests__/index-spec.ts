@@ -25,6 +25,12 @@ describe("The crawler shoud work", () => {
     MangaProvider.addCrawler(goodMangaCrawler);
   });
 
+  test("It should be able to update the manga list", async () => {
+    await MangaProvider.updateMangaDb();
+    expect(MangaProvider.crawlers[0].isMangaListEmpty()).toBe(false);
+    expect(MangaProvider.crawlers[1].isMangaListEmpty()).toBe(false);
+  });
+
   describe("It should get the list of mangas", async () => {
     beforeAll(async done => {
       searchedMangas = await MangaProvider.search("One Piece");
