@@ -1,17 +1,17 @@
-import { GoodMangaCrawler } from "./crawlers";
+import { MangaReaderCrawler } from "./crawlers";
 
 const main = async () => {
-  const goodMangaCrawler = new GoodMangaCrawler();
-  const mangas = await goodMangaCrawler.getMangaList();
-  const searchedMangas = goodMangaCrawler.searchManga(mangas, 'One Piece');
+  const crawler = new MangaReaderCrawler();
+  const mangas = await crawler.getMangaList();
+  const searchedMangas = crawler.searchManga(mangas, 'One Piece');
   console.log(searchedMangas);
-  const manga = await goodMangaCrawler.getMangaInfo(searchedMangas[0].location);
+  const manga = await crawler.getMangaInfo(searchedMangas[0].location);
   console.log(manga);
-  const chapters = await goodMangaCrawler.getChapters(
+  const chapters = await crawler.getChapters(
     searchedMangas[0].location
   );
   console.log(chapters);
-  const pages = await goodMangaCrawler.getPages(chapters[0].location);
+  const pages = await crawler.getPages(chapters[0].location);
   console.log(pages);
 };
 

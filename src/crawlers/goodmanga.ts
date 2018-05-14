@@ -1,7 +1,7 @@
 import BaseCrawler from "./base";
 import * as _ from "lodash";
 import * as xray from "x-ray";
-import Page from "../models/page";
+import { Page } from "../models";
 
 export default class GoodMangaCrawler extends BaseCrawler {
   constructor() {
@@ -27,7 +27,7 @@ export default class GoodMangaCrawler extends BaseCrawler {
         },
         status: (text: string) => {
           const status = text.replace("\nStatus:\n", "").trim();
-          return status.split(",");
+          return status;
         },
         rating: (text: string) => {
           return parseInt(parseFloat(text) / 10 * 100 + "");
@@ -38,10 +38,6 @@ export default class GoodMangaCrawler extends BaseCrawler {
 
   _getMangaList(forcedUpdate: boolean = false): Promise<any> {
     return new Promise(async resolve => {
-      // check if value already cached and not a forced update
-      if (this.mangaList.length > 0 && !forcedUpdate) {
-        resolve(this.mangaList);
-      }
 
       this.retriever(
         "http://www.goodmanga.net/manga-list",
@@ -102,7 +98,7 @@ export default class GoodMangaCrawler extends BaseCrawler {
               });
             })
           );
-          resolve(chapters.reverse());
+          resolve(chapters);
         });
     });
   }
@@ -118,6 +114,7 @@ export default class GoodMangaCrawler extends BaseCrawler {
         const pagesNum = _.range(1, count + 1);
         const pages: Page[] = pagesNum.map((page: number) => {
           return new Page({
+            index: page,
             image: res.image.replace(/(\d)+.jpg/, `${page}.jpg`)
           });
         });

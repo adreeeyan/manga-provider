@@ -1,12 +1,12 @@
-import { GoodMangaCrawler } from "../src/crawlers";
+import { MangaReaderCrawler } from "../src/crawlers";
 
-let crawler = new GoodMangaCrawler();
+let crawler = new MangaReaderCrawler();
 let mangas = [];
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
 
-describe("The GoodManga crawler should work", () => {
+describe("The MangaReader crawler should work", () => {
   beforeEach = () => {
-    crawler = new GoodMangaCrawler();
+    crawler = new MangaReaderCrawler();
   };
 
   test("It should get the list of mangas", async () => {
@@ -24,7 +24,7 @@ describe("The GoodManga crawler should work", () => {
     const manga = await crawler.getMangaInfo(
       searchedMangas[0].location
     );
-    expect(manga.authors).toContain("Oda Eiichiro");
+    expect(manga.authors).toContain("Oda, Eiichiro");
   });
 
   test("It should get the chapters list", async () => {

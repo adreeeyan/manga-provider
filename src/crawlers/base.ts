@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import Manga from "../models/manga";
+import { Manga } from "../models";
 
 export default abstract class BaseCrawler {
   retriever: any;
