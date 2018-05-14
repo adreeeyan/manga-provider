@@ -2,11 +2,12 @@ import * as _ from "lodash";
 import { Manga } from "../models";
 
 export default abstract class BaseCrawler {
-  retriever: any;
-  mangaList: Manga[];
+  public name: string;
+  protected retriever: any;
+  protected mangaList: Manga[] = [];
 
-  constructor() {
-    this.mangaList = [];
+  constructor(name: string) {
+    this.name = name;
   }
 
   public getMangaList = (forcedUpdate: boolean = false): Promise<any> => {
@@ -21,16 +22,12 @@ export default abstract class BaseCrawler {
     });
   };
 
-  abstract _getMangaList(): Promise<any>;
-
   public getMangaInfo = (location: string): Promise<any> => {
     return new Promise(async resolve => {
       const info = await this._getMangaInfo(location);
       resolve(info);
     });
   };
-
-  abstract _getMangaInfo(location: string): Promise<any>;
 
   public getChapters = (location: string): Promise<any> => {
     return new Promise(async resolve => {
@@ -40,8 +37,6 @@ export default abstract class BaseCrawler {
     });
   };
 
-  abstract _getChapters(location: string): Promise<any>;
-
   public getPages = (location: string): Promise<any> => {
     return new Promise(async resolve => {
       const pages = await this._getPages(location);
@@ -49,19 +44,26 @@ export default abstract class BaseCrawler {
     });
   };
 
-  abstract _getPages(location: string): Promise<any>;
-
   public searchManga = (title: string): Promise<any> => {
     return new Promise(async resolve => {
       let source = this.mangaList;
-      if (source.length == 0) {
+      if (source.length === 0) {
         source = await this._getMangaList();
       }
       const searched =
         source.filter(manga =>
           _.includes(manga.title.toLowerCase(), title.toLowerCase())
         ) || [];
-      resolve(searched);
+      const addedSource = searched.map(s => ({
+        ...s,
+        source: this.name,
+      }));
+      resolve(addedSource);
     });
   };
+
+  protected abstract _getMangaList(): Promise<any>;
+  protected abstract _getMangaInfo(location: string): Promise<any>;
+  protected abstract _getChapters(location: string): Promise<any>;
+  protected abstract _getPages(location: string): Promise<any>;
 }

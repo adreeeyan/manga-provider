@@ -2,10 +2,11 @@ import BaseCrawler from "./base";
 import * as _ from "lodash";
 import * as xray from "x-ray";
 import { Page } from "../models";
+import { Names } from "../consts";
 
 export default class MangaReaderCrawler extends BaseCrawler {
   constructor() {
-    super();
+    super(Names.MangaReader);
 
     this.retriever = xray({
       filters: {
@@ -25,8 +26,8 @@ export default class MangaReaderCrawler extends BaseCrawler {
             return "";
           }
           return `${matches[1]} ${matches[2]}`;
-        }
-      }
+        },
+      },
     });
   }
 
@@ -38,7 +39,7 @@ export default class MangaReaderCrawler extends BaseCrawler {
         {
           titles: ["a"],
           covers: ["a@href | cover"],
-          location: ["a@href"]
+          location: ["a@href"],
         }
       ).then((res: any) => {
         // map the response
@@ -46,7 +47,7 @@ export default class MangaReaderCrawler extends BaseCrawler {
           return {
             title: title.trim(),
             cover: res.covers[index],
-            location: res.location[index]
+            location: res.location[index],
           };
         });
         this.mangaList = mapped;
@@ -65,7 +66,7 @@ export default class MangaReaderCrawler extends BaseCrawler {
         summary: "#readmangasum p",
         genres: ["#mangaproperties tr:nth-of-type(8) .genretags"],
         status: "#mangaproperties tr:nth-of-type(4) td:last-of-type",
-        release_date: "#mangaproperties tr:nth-of-type(3) td:last-of-type"
+        release_date: "#mangaproperties tr:nth-of-type(3) td:last-of-type",
       }).then((res: any) => {
         res["rating"] = 0;
         resolve(res);
@@ -77,14 +78,14 @@ export default class MangaReaderCrawler extends BaseCrawler {
     return new Promise(async resolve => {
       this.retriever(location, "#chapterlist", {
         chaptersTitle: [
-          "tr:not(:nth-of-type(1)) td:first-of-type | chapter_title"
+          "tr:not(:nth-of-type(1)) td:first-of-type | chapter_title",
         ],
-        chapters: ["tr:not(:nth-of-type(1)) td:first-of-type a@href"]
+        chapters: ["tr:not(:nth-of-type(1)) td:first-of-type a@href"],
       }).then((res: any) => {
         const chapters = res.chapters.map((chapter: any, index: any) => {
           return {
             title: res.chaptersTitle[index].trim(),
-            location: chapter
+            location: chapter,
           };
         });
         resolve(chapters);
@@ -96,7 +97,7 @@ export default class MangaReaderCrawler extends BaseCrawler {
     return new Promise(async resolve => {
       // get page 1 first, it contains the range of the pages
       this.retriever(location, "#container", {
-        image: "#imgholder img@src"
+        image: "#imgholder img@src",
       })
         .paginate("#navi .next a@href")
         .abort((result: string, nextUrl: string) => {
@@ -108,7 +109,7 @@ export default class MangaReaderCrawler extends BaseCrawler {
             res.map((part: any, index: number) => {
               return new Page({
                 index: index + 1,
-                image: part.image
+                image: part.image,
               });
             })
           );

@@ -21,9 +21,7 @@ describe("The MangaReader crawler should work", () => {
 
   test("It should get the manga info", async () => {
     const searchedMangas = await crawler.searchManga("One Piece");
-    const manga = await crawler.getMangaInfo(
-      searchedMangas[0].location
-    );
+    const manga = await crawler.getMangaInfo(searchedMangas[0].location);
     expect(manga.authors).toContain("Oda, Eiichiro");
   });
 

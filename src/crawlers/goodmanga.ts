@@ -2,10 +2,11 @@ import BaseCrawler from "./base";
 import * as _ from "lodash";
 import * as xray from "x-ray";
 import { Page } from "../models";
+import { Names } from "../consts";
 
 export default class GoodMangaCrawler extends BaseCrawler {
   constructor() {
-    super();
+    super(Names.GoodManga);
 
     this.retriever = xray({
       filters: {
@@ -31,21 +32,20 @@ export default class GoodMangaCrawler extends BaseCrawler {
         },
         rating: (text: string) => {
           return parseInt(parseFloat(text) / 10 * 100 + "");
-        }
-      }
+        },
+      },
     });
   }
 
   _getMangaList(forcedUpdate: boolean = false): Promise<any> {
     return new Promise(async resolve => {
-
       this.retriever(
         "http://www.goodmanga.net/manga-list",
         "#content table.series_index td",
         {
           titles: ["a"],
           covers: ["a@href | cover"],
-          location: ["a@href"]
+          location: ["a@href"],
         }
       ).then((res: any) => {
         // map the response
@@ -53,7 +53,7 @@ export default class GoodMangaCrawler extends BaseCrawler {
           return {
             title: title.trim(),
             cover: res.covers[index],
-            location: res.location[index]
+            location: res.location[index],
           };
         });
         this.mangaList = mapped;
@@ -73,7 +73,7 @@ export default class GoodMangaCrawler extends BaseCrawler {
         genres: ["#series_details > div:nth-of-type(7) .red_box"],
         status: "#series_details > div:nth-of-type(4) | status",
         release_date: "#series_details > div:nth-of-type(5)",
-        rating: "#series_details #rating_num"
+        rating: "#series_details #rating_num",
       }).then((res: any) => {
         resolve(res);
       });
@@ -84,7 +84,7 @@ export default class GoodMangaCrawler extends BaseCrawler {
     return new Promise(async resolve => {
       this.retriever(location, "#content", {
         chaptersTitle: ["#chapters ul > li a"],
-        chapters: ["#chapters ul > li a@href"]
+        chapters: ["#chapters ul > li a@href"],
       })
         .paginate(".pagination li:last-of-type a@href")
         .then((res: any) => {
@@ -93,7 +93,7 @@ export default class GoodMangaCrawler extends BaseCrawler {
               return part.chapters.map((chapter: any, index: any) => {
                 return {
                   title: res[0].chaptersTitle[index].trim(),
-                  location: chapter
+                  location: chapter,
                 };
               });
             })
@@ -108,14 +108,14 @@ export default class GoodMangaCrawler extends BaseCrawler {
       // get page 1 first, it contains the range of the pages
       this.retriever(location, "#content", {
         count: ".page_select ~ span",
-        image: "#manga_viewer img@src"
+        image: "#manga_viewer img@src",
       }).then((res: any) => {
         const count = parseInt(res.count.replace("of ", "").trim());
         const pagesNum = _.range(1, count + 1);
         const pages: Page[] = pagesNum.map((page: number) => {
           return new Page({
             index: page,
-            image: res.image.replace(/(\d)+.jpg/, `${page}.jpg`)
+            image: res.image.replace(/(\d)+.jpg/, `${page}.jpg`),
           });
         });
         resolve(pages);
