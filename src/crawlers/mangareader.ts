@@ -25,7 +25,7 @@ export default class MangaReaderCrawler extends BaseCrawler {
           if (matches == null) {
             return "";
           }
-          return `${matches[1]} ${matches[2]}`;
+          return `${matches[1]} ${matches[2] ? matches[2] : ""}`.trim();
         },
       },
     });
@@ -78,13 +78,14 @@ export default class MangaReaderCrawler extends BaseCrawler {
     return new Promise(async resolve => {
       this.retriever(location, "#chapterlist", {
         chaptersTitle: [
-          "tr:not(:nth-of-type(1)) td:first-of-type | chapter_title",
+          "tr:not(:nth-of-type(1)) td:first-of-type@html | chapter_title",
         ],
         chapters: ["tr:not(:nth-of-type(1)) td:first-of-type a@href"],
       }).then((res: any) => {
         const chapters = res.chapters.map((chapter: any, index: any) => {
           return {
-            title: res.chaptersTitle[index].trim(),
+            index: index + 1,
+            title: res.chaptersTitle[index],
             location: chapter,
           };
         });

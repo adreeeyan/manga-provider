@@ -94,15 +94,17 @@ export default class GoodMangaCrawler extends BaseCrawler {
         .then((res: any) => {
           const chapters = _.flatten(
             res.map((part: any) => {
-              return part.chapters.map((chapter: any, index: any) => {
+              const reversedChaptersTitle = part.chaptersTitle.reverse();
+              return part.chapters.reverse().map((chapter: any, index: any) => {
                 return {
-                  title: res[0].chaptersTitle[index].trim(),
+                  index: index + 1,
+                  title: reversedChaptersTitle[index].trim(),
                   location: chapter,
                 };
               });
             })
           );
-          resolve(chapters);
+          resolve(chapters.sort((a: any, b: any) => a.index - b.index));
         });
     });
   }

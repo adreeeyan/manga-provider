@@ -1,4 +1,5 @@
 import { GoodMangaCrawler } from "../src/crawlers";
+import * as _ from "lodash";
 
 let crawler = new GoodMangaCrawler();
 let mangas = [];
@@ -25,10 +26,20 @@ describe("The GoodManga crawler should work", () => {
     expect(manga.authors).toContain("Oda Eiichiro");
   });
 
-  test("It should get the chapters list", async () => {
-    const chapters = await crawler.getChapters(mangas[0].location);
+  describe("It should get the chapters list", async () => {
+    let chapters = [];
 
-    expect(chapters.length).toBeGreaterThan(0);
+    test("It should be able to get the chapters list", async () => {
+      chapters = await crawler.getChapters(mangas[0].location);
+      expect(chapters.length).toBeGreaterThan(0);
+    });
+
+    test("It should be sorted in increasing order", () => {
+      const isSorted = _.every(chapters, (value, index, array) => {
+        return index === 0 || array[index - 1].index <= value.index;
+      });
+      expect(isSorted).toBe(true);
+    });
   });
 
   test("It should get the pages list", async () => {

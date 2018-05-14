@@ -54,6 +54,7 @@ import MangaProvider from "manga-provider";
 ```
 
 ### Output format
+
 Some output listed below are in `Promise`. Thus, you need to use `.then` to get the actual output or you can `await` it.
 
 #### `.then`
@@ -78,7 +79,10 @@ By default there is no source added. This is so that you can control where you w
 > Note: Adding many sources will make the initial loading of the library slower, no other side effects other than that.
 
 ```js
-const { MangaReaderCrawler,  GoodMangaCrawler } = require("manga-provider/crawlers");
+const {
+  MangaReaderCrawler,
+  GoodMangaCrawler
+} = require("manga-provider/crawlers");
 MangaProvider.addCrawler(new MangaReaderCrawler());
 MangaProvider.addCrawler(new GoodMangaCrawler());
 ```
@@ -115,10 +119,10 @@ MangaProvider.search("One piece").then(res => {
 
 An array of these properties:
 
-|Name|Type|Description|Example|
-|----|----|-----------|-------|
-|source|string|Where the list comes from|"GoodManga"|
-|mangas|array of objects|List of manga|See sample output below|
+| Name   | Type             | Description               | Example                 |
+| ------ | ---------------- | ------------------------- | ----------------------- |
+| source | string           | Where the list comes from | "GoodManga"             |
+| mangas | array of objects | List of manga             | See sample output below |
 
 Sample output:
 
@@ -235,10 +239,11 @@ MangaProvider.getChapters("http://www.goodmanga.net/5/one_piece").then(res => {
 
 An array of these properties:
 
-|Name|Type|Description|Example|
-|----|----|-----------|-------|
-|title|string|Chapter title|"One Piece Chapter 900"|
-|location|string|URL of the chapter|"http://www.goodmanga.net/one_piece/chapter/3"|
+| Name     | Type   | Description        | Example                                        |
+| -------- | ------ | ------------------ | ---------------------------------------------- |
+| index    | number | Chapter number     | 3                                              |
+| title    | string | Chapter title      | "One Piece Chapter 900"                        |
+| location | string | URL of the chapter | "http://www.goodmanga.net/one_piece/chapter/3" |
 
 Sample output:
 
@@ -273,19 +278,21 @@ Output is wrapped in a `Promise`.
 Sample usage:
 
 ```js
-MangaProvider.getPages("http://www.goodmanga.net/one_piece/chapter/904").then(res => {
-  console.log(res);
-});
+MangaProvider.getPages("http://www.goodmanga.net/one_piece/chapter/904").then(
+  res => {
+    console.log(res);
+  }
+);
 ```
 
 **Return value**
 
 An array of these properties:
 
-|Name|Type|Description|Example|
-|----|----|-----------|-------|
-|index|number|Page number|1|
-|image|string|URL of the page image|"http://www.goodmanga.net/images/manga/one_piece/904/1.jpg"|
+| Name  | Type   | Description           | Example                                                     |
+| ----- | ------ | --------------------- | ----------------------------------------------------------- |
+| index | number | Page number           | 1                                                           |
+| image | string | URL of the page image | "http://www.goodmanga.net/images/manga/one_piece/904/1.jpg" |
 
 Sample output:
 

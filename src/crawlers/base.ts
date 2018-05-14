@@ -32,8 +32,7 @@ export default abstract class BaseCrawler {
   public getChapters = (location: string): Promise<any> => {
     return new Promise(async resolve => {
       const chapters = await this._getChapters(location);
-      // reverse the sorting
-      resolve(chapters.reverse());
+      resolve(chapters);
     });
   };
 
