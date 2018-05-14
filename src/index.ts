@@ -1,4 +1,4 @@
-import GoodMangaCrawler from './crawlers/goodmanga';
+import { GoodMangaCrawler } from "./crawlers";
 
 const main = async () => {
   const goodMangaCrawler = new GoodMangaCrawler();

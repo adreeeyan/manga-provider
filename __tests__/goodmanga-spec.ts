@@ -1,14 +1,14 @@
-import GoodMangaCrawler from "../src/crawlers/goodmanga";
+import { GoodMangaCrawler } from "../src/crawlers";
 
 let goodMangaCrawler = new GoodMangaCrawler();
 let mangas = [];
 
-beforeEach = () => {
-  goodMangaCrawler = new GoodMangaCrawler();
-  jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
-};
-
 describe("The GoodManga crawler should work", () => {
+  beforeEach = () => {
+    goodMangaCrawler = new GoodMangaCrawler();
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
+  };
+
   test("It should get the list of mangas", async () => {
     mangas = await goodMangaCrawler.getMangaList();
     expect(mangas.length).toBeGreaterThan(0);
