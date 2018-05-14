@@ -8,6 +8,10 @@ const addCrawler = (crawler: BaseCrawler) => {
   crawlers.push(crawler);
 };
 
+const removeCrawler = (crawler: BaseCrawler) => {
+  _.pull(crawlers, crawler);
+};
+
 const search = (title: string): Promise<any> => {
   return new Promise(async resolve => {
     const variousResults = await Promise.all(
@@ -67,4 +71,12 @@ const getCrawlerFromSource = (source: string) => {
   return crawlers.find(crawler => crawler.name == source);
 };
 
-export { addCrawler, crawlers, search, getMangaInfo, getChapters, getPages };
+export {
+  addCrawler,
+  removeCrawler,
+  crawlers,
+  search,
+  getMangaInfo,
+  getChapters,
+  getPages
+};

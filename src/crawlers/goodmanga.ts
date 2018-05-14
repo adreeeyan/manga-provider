@@ -30,8 +30,12 @@ export default class GoodMangaCrawler extends BaseCrawler {
           const status = text.replace("\nStatus:\n", "").trim();
           return status;
         },
+        released_date: (text: string) => {
+          const status = text.replace("\nReleased:\n", "").trim();
+          return status;
+        },
         rating: (text: string) => {
-          return parseInt(parseFloat(text) / 10 * 100 + "");
+          return parseInt(text);
         },
       },
     });
@@ -72,8 +76,8 @@ export default class GoodMangaCrawler extends BaseCrawler {
         summary: "#series_details #full_notes",
         genres: ["#series_details > div:nth-of-type(7) .red_box"],
         status: "#series_details > div:nth-of-type(4) | status",
-        release_date: "#series_details > div:nth-of-type(5)",
-        rating: "#series_details #rating_num",
+        release_date: "#series_details > div:nth-of-type(5) | released_date",
+        rating: "#series_details #rating_num | rating",
       }).then((res: any) => {
         resolve(res);
       });

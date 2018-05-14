@@ -5,12 +5,24 @@ let searchedMangas = [];
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
 
 describe("The crawler shoud work", () => {
+  let mangaReaderCrawler = new MangaReaderCrawler();
+  let goodMangaCrawler = new GoodMangaCrawler();
+  
   test("It should be able to add crawlers", () => {
-    expect(MangaProvider.crawlers.length).toBe(0);
-    MangaProvider.addCrawler(new MangaReaderCrawler());
+    MangaProvider.addCrawler(mangaReaderCrawler);
     expect(MangaProvider.crawlers.length).toBe(1);
-    MangaProvider.addCrawler(new GoodMangaCrawler());
+    MangaProvider.addCrawler(goodMangaCrawler);
     expect(MangaProvider.crawlers.length).toBe(2);
+  });
+
+  test("It should be able to remove crawlers", () => {
+    MangaProvider.removeCrawler(mangaReaderCrawler);
+    expect(MangaProvider.crawlers.length).toBe(1);
+    MangaProvider.removeCrawler(goodMangaCrawler);
+    expect(MangaProvider.crawlers.length).toBe(0);
+
+    MangaProvider.addCrawler(mangaReaderCrawler);
+    MangaProvider.addCrawler(goodMangaCrawler);
   });
 
   describe("It should get the list of mangas", async () => {
@@ -34,12 +46,16 @@ describe("The crawler shoud work", () => {
   });
 
   test("It should get the chapters list", async () => {
-    const chapters = await MangaProvider.getChapters(searchedMangas[0].mangas[0].location);
+    const chapters = await MangaProvider.getChapters(
+      searchedMangas[0].mangas[0].location
+    );
     expect(chapters.length).toBeGreaterThan(0);
   });
 
   test("It should get the pages list", async () => {
-    const chapters = await MangaProvider.getChapters(searchedMangas[0].mangas[0].location);
+    const chapters = await MangaProvider.getChapters(
+      searchedMangas[0].mangas[0].location
+    );
     const pages = await MangaProvider.getPages(chapters[0].location);
     expect(pages.length).toBeGreaterThan(0);
   });
