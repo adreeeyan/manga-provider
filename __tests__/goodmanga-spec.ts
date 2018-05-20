@@ -3,6 +3,7 @@ import * as _ from "lodash";
 
 let crawler = new GoodMangaCrawler();
 let mangas = [];
+let searchedMangas = [];
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
 describe("The GoodManga crawler should work", () => {
@@ -16,14 +17,37 @@ describe("The GoodManga crawler should work", () => {
   });
 
   test("It should be able to search manga", async () => {
-    const searchedMangas = await crawler.searchManga("One Piece");
+    searchedMangas = await crawler.searchManga("One Piece");
     expect(searchedMangas.length).toBeGreaterThan(0);
   });
 
-  test("It should get the manga info", async () => {
-    const searchedMangas = await crawler.searchManga("One Piece");
-    const manga = await crawler.getMangaInfo(searchedMangas[0].location);
-    expect(manga.authors).toContain("Oda Eiichiro");
+  describe("It should get the manga info", async () => {
+    let manga = null;
+    beforeAll(async done => {
+      manga = await crawler.getMangaInfo(searchedMangas[0].location);
+      done();
+    });
+    test("It should get the author", () => {
+      expect(manga.authors).toContain("Oda Eiichiro");
+    });
+    test("It should get the other titles", () => {
+      expect(manga.alternativeTitles.length).toBeGreaterThan(0);
+    });
+    test("It should get the cover", () => {
+      expect(manga.cover.length).toBeGreaterThan(0);
+    });
+    test("It should get the rating", () => {
+      expect(typeof manga.rating).toBe("number");
+    });
+    test("It should get the genres", () => {
+      expect(manga.genres.length).toBeGreaterThan(0);
+    });
+    test("It should get the summary", () => {
+      expect(manga.summary.length).toBeGreaterThan(0);
+    });
+    test("It should get the release date", () => {
+      expect(manga.releaseDate.length).toBeGreaterThan(0);
+    });
   });
 
   describe("It should get the chapters list", async () => {

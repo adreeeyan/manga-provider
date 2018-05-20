@@ -180,23 +180,23 @@ MangaProvider.getMangaInfo("http://www.goodmanga.net/5/one_piece").then(res => {
 
 **Return value**
 
-| Name               | Type             | Description                        | Example                           |
-| ------------------ | ---------------- | ---------------------------------- | --------------------------------- |
-| title              | string           | Manga title                        | "One Piece"                       |
-| alternative_titles | array of strings | Other titles (e.g. Japanese title) | ["Wan pisu"]                      |
-| authors            | array of strings | Authors                            | ["Oda Eiichiro"]                  |
-| summary            | string           | Summary                            | "A long long time ago..."         |
-| genres             | array of strings | Genres                             | ["Action", "Adventure", "Comedy"] |
-| status             | string           | Status                             | "Ongoing"                         |
-| release_date       | string           | Date released (Mostly just year)   | "1997"                            |
-| rating             | number           | Rating from 0 to 10                | 9                                 |
+| Name              | Type             | Description                        | Example                           |
+| ----------------- | ---------------- | ---------------------------------- | --------------------------------- |
+| title             | string           | Manga title                        | "One Piece"                       |
+| alternativeTitles | array of strings | Other titles (e.g. Japanese title) | ["Wan pisu"]                      |
+| authors           | array of strings | Authors                            | ["Oda Eiichiro"]                  |
+| summary           | string           | Summary                            | "A long long time ago..."         |
+| genres            | array of strings | Genres                             | ["Action", "Adventure", "Comedy"] |
+| status            | string           | Status                             | "Ongoing"                         |
+| releaseDate       | string           | Date released (Mostly just year)   | "1997"                            |
+| rating            | number           | Rating from 0 to 10                | 9                                 |
 
 Sample output:
 
 ```javascript
  {
     title: "One Piece",
-    alternative_titles: [ "Onepiece" ],
+    alternativeTitles: [ "Onepiece" ],
     authors: [ "Oda Eiichiro" ],
     summary: 'Greatness, Glory, Gold. A Pirate Named Gold Roger also known as the Pirate King has conquered this all. He was executed with an unknown reason but before he died he had revealed his last word about The legendary Treasure named One Piece which was hidden in the Grand Line. 22 years after his Death, A Pirate named Monkey D. Luffy appeared and has onlyone Goal, To Become the Next "Pirate King" and Find The Treasure "One Piece". This Start The Never Ending Adventure. Monkey D. Luffy, inspired by his childhood hero "Red-Haired" Shanks, sets out on a journey to find the legendary treasure One Piece, to become the new Pirate King, and after eating the devil\"s fruit gains the power to do so. To accomplish this, he must reach the end of the most deadly and dangerous ocean: The Grand Line. But first he must find a crew. less',
     genres: [
@@ -210,7 +210,7 @@ Sample output:
         "Shounen",
         "Supernatural" ],
     status: "Ongoing",
-    release_date: "1997",
+    releaseDate: "1997",
     rating: "9"
 }
 ```

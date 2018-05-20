@@ -1,11 +1,12 @@
 export default class Manga {
   public title: string = "";
-  public alternative_titles: string[] = [];
+  public alternativeTitles: string[] = [];
+  public cover: string = "";
   public authors: string[] = [];
   public genres: string[] = [];
   public summary: string = "";
   public status: string = "";
-  public release_date: string = "";
+  public releaseDate: string = "";
   public rating: number = 0;
   public location: string = "";
 

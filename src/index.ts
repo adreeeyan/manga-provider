@@ -88,5 +88,5 @@ export {
   search,
   getMangaInfo,
   getChapters,
-  getPages
+  getPages,
 };

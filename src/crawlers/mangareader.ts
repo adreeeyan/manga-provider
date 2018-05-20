@@ -14,7 +14,7 @@ export default class MangaReaderCrawler extends BaseCrawler {
           const id = text.substr(text.lastIndexOf("/") + 1);
           return `https://s5.mangareader.net/cover/${id}/${id}-l0.jpg`;
         },
-        alternative_titles: (text: string) => {
+        alternativeTitles: (text: string) => {
           return [text];
         },
         authors: (text: string) => {
@@ -60,13 +60,14 @@ export default class MangaReaderCrawler extends BaseCrawler {
     return new Promise(async resolve => {
       this.retriever(location, "#wrapper_body", {
         title: ".aname",
-        alternative_titles:
-          "#mangaproperties tr:nth-of-type(2) td:last-of-type | alternative_titles",
+        alternativeTitles:
+          "#mangaproperties tr:nth-of-type(2) td:last-of-type | alternativeTitles",
         authors: "#mangaproperties tr:nth-of-type(5) td:last-of-type | authors",
         summary: "#readmangasum p",
         genres: ["#mangaproperties tr:nth-of-type(8) .genretags"],
         status: "#mangaproperties tr:nth-of-type(4) td:last-of-type",
-        release_date: "#mangaproperties tr:nth-of-type(3) td:last-of-type",
+        releaseDate: "#mangaproperties tr:nth-of-type(3) td:last-of-type",
+        cover: "#mangaimg img@src"
       }).then((res: any) => {
         res["rating"] = 0;
         resolve(res);

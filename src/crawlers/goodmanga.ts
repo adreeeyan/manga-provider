@@ -18,7 +18,7 @@ export default class GoodMangaCrawler extends BaseCrawler {
           const id = matches[1];
           return `http://www.goodmanga.net/images/series/large/${id}.jpg`;
         },
-        alternative_titles: (text: string) => {
+        alternativeTitles: (text: string) => {
           const full_titles = text.replace("\nAlternative Titles: ", "").trim();
           return full_titles.split(",");
         },
@@ -30,7 +30,7 @@ export default class GoodMangaCrawler extends BaseCrawler {
           const status = text.replace("\nStatus:\n", "").trim();
           return status;
         },
-        released_date: (text: string) => {
+        releaseDate: (text: string) => {
           const status = text.replace("\nReleased:\n", "").trim();
           return status;
         },
@@ -70,14 +70,15 @@ export default class GoodMangaCrawler extends BaseCrawler {
     return new Promise(async resolve => {
       this.retriever(location, "#content", {
         title: ".right_col h1",
-        alternative_titles:
-          "#series_details > div:first-of-type | alternative_titles",
+        alternativeTitles:
+          "#series_details > div:first-of-type | alternativeTitles",
         authors: "#series_details > div:nth-of-type(2) | authors",
         summary: "#series_details #full_notes",
         genres: ["#series_details > div:nth-of-type(7) .red_box"],
         status: "#series_details > div:nth-of-type(4) | status",
-        release_date: "#series_details > div:nth-of-type(5) | released_date",
+        releaseDate: "#series_details > div:nth-of-type(5) | releaseDate",
         rating: "#series_details #rating_num | rating",
+        cover: "#series_image@src"
       }).then((res: any) => {
         resolve(res);
       });
