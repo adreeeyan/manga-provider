@@ -1,6 +1,6 @@
 const Names = {
   MangaReader: "MangaReader",
-  GoodManga: "GoodManga",
+  GoodManga: "GoodManga"
 };
 
 export { Names };

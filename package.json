@@ -1,6 +1,6 @@
 {
   "name": "baruch-manga-provider",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "baruch-manga-provider",
   "license": "MIT",
   "repository": "https://github.com/adrianonrails/manga-provider/",
@@ -22,7 +22,7 @@
   "typings": "lib/index.d.ts",
   "scripts": {
     "clean": "rimraf lib && rimraf coverage",
-    "format": "prettier --write \"{src,__tests__}/**/*.ts\" --trailing-comma es5",
+    "format": "prettier --write \"{src,__tests__}/**/*.ts\"",
     "lint": "tslint --force --format verbose \"src/**/*.ts\"",
     "prepublishOnly": "npm run build",
     "prebuild": "npm run clean && npm run format && npm run lint && echo Using TypeScript && tsc --version",
