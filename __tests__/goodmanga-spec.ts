@@ -54,7 +54,7 @@ describe("The GoodManga crawler should work", () => {
     let chapters = [];
 
     test("It should be able to get the chapters list", async () => {
-      chapters = await crawler.getChapters(mangas[0].location);
+      chapters = await crawler.getChapters(searchedMangas[0].location);
       expect(chapters.length).toBeGreaterThan(0);
     });
 
