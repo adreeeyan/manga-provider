@@ -25,6 +25,10 @@ export default abstract class BaseCrawler {
   public getMangaInfo = (location: string): Promise<any> => {
     return new Promise(async resolve => {
       const info = await this._getMangaInfo(location);
+      // append location
+      if (info) {
+        info.location = location;
+      }
       resolve(info);
     });
   };

@@ -48,6 +48,9 @@ describe("The MangaReader crawler should work", () => {
     test("It should get the release date", () => {
       expect(manga.releaseDate.length).toBeGreaterThan(0);
     });
+    test("It should contain the manga location", () => {
+      expect(manga.location).toBe(searchedMangas[0].location);
+    });
   });
 
   describe("It should get the chapters list", async () => {

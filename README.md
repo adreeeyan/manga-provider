@@ -180,16 +180,17 @@ MangaProvider.getMangaInfo("http://www.goodmanga.net/5/one_piece").then(res => {
 
 **Return value**
 
-| Name              | Type             | Description                        | Example                           |
-| ----------------- | ---------------- | ---------------------------------- | --------------------------------- |
-| title             | string           | Manga title                        | "One Piece"                       |
-| alternativeTitles | array of strings | Other titles (e.g. Japanese title) | ["Wan pisu"]                      |
-| authors           | array of strings | Authors                            | ["Oda Eiichiro"]                  |
-| summary           | string           | Summary                            | "A long long time ago..."         |
-| genres            | array of strings | Genres                             | ["Action", "Adventure", "Comedy"] |
-| status            | string           | Status                             | "Ongoing"                         |
-| releaseDate       | string           | Date released (Mostly just year)   | "1997"                            |
-| rating            | number           | Rating from 0 to 10                | 9                                 |
+| Name              | Type             | Description                        | Example                                |
+| ----------------- | ---------------- | ---------------------------------- | -------------------------------------- |
+| title             | string           | Manga title                        | "One Piece"                            |
+| alternativeTitles | array of strings | Other titles (e.g. Japanese title) | ["Wan pisu"]                           |
+| authors           | array of strings | Authors                            | ["Oda Eiichiro"]                       |
+| summary           | string           | Summary                            | "A long long time ago..."              |
+| genres            | array of strings | Genres                             | ["Action", "Adventure", "Comedy"]      |
+| status            | string           | Status                             | "Ongoing"                              |
+| releaseDate       | string           | Date released (Mostly just year)   | "1997"                                 |
+| rating            | number           | Rating from 0 to 10                | 9                                      |
+| location          | string           | Manga URL                          | "http://www.goodmanga.net/5/one_piece" |
 
 Sample output:
 
@@ -211,7 +212,8 @@ Sample output:
         "Supernatural" ],
     status: "Ongoing",
     releaseDate: "1997",
-    rating: "9"
+    rating: 9,
+    location: "http://www.goodmanga.net/5/one_piece"
 }
 ```
 
